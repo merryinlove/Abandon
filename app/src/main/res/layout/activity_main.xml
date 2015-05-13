@@ -1,0 +1,75 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/statusBar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/statusMargin" />
+
+    <FrameLayout
+        android:id="@+id/toolBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/statusBar">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/paddingTop">
+
+            <TextView
+                android:id="@+id/head"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:text="@string/title"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@android:color/white"
+                android:textSize="56sp" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/head"
+                android:layout_centerHorizontal="true"
+                android:text="@string/sub_title"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@android:color/white" />
+        </RelativeLayout>
+
+
+        <com.skyfishjy.library.RippleBackground
+            android:id="@+id/animation"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:rb_color="@android:color/white"
+            app:rb_duration="6000"
+            app:rb_radius="48dp"
+            app:rb_rippleAmount="4"
+            app:rb_scale="6">
+            <com.melnykov.fab.FloatingActionButton
+                android:id="@+id/fab"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_add_white_24dp"
+                app:fab_colorNormal="@color/fab"
+                app:fab_colorRipple="@color/ripple"
+                android:layout_marginRight="32dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="32dp"/>
+        </com.skyfishjy.library.RippleBackground>
+
+
+
+
+    </FrameLayout>
+
+</RelativeLayout>

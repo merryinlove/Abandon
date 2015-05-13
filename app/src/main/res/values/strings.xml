@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">数字中南</string>
+
+    <string name="action_settings">设置</string>
+    <string name="action_logout">强制下线</string>
+    <string name="title">AbanDon</string>
+    <string name="sub_title">数字中南客户端</string>
+    <string name="title_activity_login">LoginActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_home">HomeActivity</string>
+
+</resources>
