@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.TextUtils;
 import android.util.Log;
@@ -83,7 +84,7 @@ public class LoginTask extends AsyncTask<String, Integer, Void> {
             if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
                 InputStream is = response.getEntity().getContent();
                 BufferedReader br = new BufferedReader(new InputStreamReader(is));
-                //获取登陆网页信息网页,主要是brasAddress与userIntranetAddress
+                //获取登录网页信息网页,主要是brasAddress与userIntranetAddress
                 String html = null;
                 String temp;
                 while ((temp = br.readLine()) != null) {
@@ -158,7 +159,7 @@ public class LoginTask extends AsyncTask<String, Integer, Void> {
                 *   "userAgentType":"Apache-HttpClient/UNAVAILABLE (java 1.4)"
                 *   }
                 * */
-            //成功登陆的返回json
+            //成功登录的返回json
                 /*  {
                 *   "userSchoolOctets":"202.59",
                 *   "password":"34babc7360866a3ee74.......",
@@ -209,14 +210,14 @@ public class LoginTask extends AsyncTask<String, Integer, Void> {
             cancel(true);
         }
 
-        //首先应该判断用户是否在本机已经登陆 查看sharePreferences是否存在Address,但是这种判断不是完美的,
-        //因为有可能用户登陆过,关掉wifi,5分钟后再打开WIFI,会显示已经登陆了,肿么破?
+        //首先应该判断用户是否在本机已经登录 查看sharePreferences是否存在Address,但是这种判断不是完美的,
+        //因为有可能用户登录过,关掉wifi,5分钟后再打开WIFI,会显示已经登录了,肿么破?
         //监听wifi状态,当wifi离线超过5分钟删除?关机怎么办?有问题!!!!!!
 
         preferences = context.getSharedPreferences("use_address", 0);
         String brasAddress = preferences.getString("brasAddress", "");//判断一个即可
         if (!TextUtils.isEmpty(brasAddress)) {
-            showSnackAlert("本机已经登陆,不需要再登陆\n注意,本条信息可能存在误判....见帮助.");
+            showSnackAlert("本机已经登录,不需要再登录\n注意,本条信息可能存在误判....见帮助.");
             progressBar.setVisibility(View.GONE);
             cancel(true);
         }
@@ -233,16 +234,16 @@ public class LoginTask extends AsyncTask<String, Integer, Void> {
             String resultDescribe = object.getString("resultDescribe");
             //如果result为空说明,登录失败,超连接时等错误
             if (TextUtils.isEmpty(result)) {
-                showSnackAlert("未知原因,登陆失败!");
+                showSnackAlert("未知原因,登录失败!");
             } else if (0 == resultCode) {
-                //showSnackAlert("登陆成功!");不需要,切换activity
-                //成功登陆需要保存把brasAddress与userIntranetAddress保存到本地sharePreferences
+                //showSnackAlert("登录成功!");不需要,切换activity
+                //成功登录需要保存把brasAddress与userIntranetAddress保存到本地sharePreferences
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putString("brasAddress", brasAddress);
                 editor.putString("userIntranetAddress", userIntranetAddress);
                 editor.apply();
 
-                //成功登陆需要判断是否保存账户密码?
+                //成功登录需要判断是否保存账户密码?
                 if (remember) {
                     //就不写外面了
                     SharedPreferences preferences = context.getSharedPreferences("usr_info", 0);
@@ -254,13 +255,14 @@ public class LoginTask extends AsyncTask<String, Integer, Void> {
 
 
                 Intent intent = new Intent(context, HomeActivity.class);
+                Bundle bundle = new Bundle();
                 intent.putExtra("json", result);//传递流量信息
                 context.startActivity(intent);
             } else {
                 showSnackAlert(resultDescribe);
             }
         } catch (JSONException e) {
-            showSnackAlert("未知原因,登陆失败!");
+            showSnackAlert("未知原因,登录失败!");
         }
 
         //关闭UI进度条

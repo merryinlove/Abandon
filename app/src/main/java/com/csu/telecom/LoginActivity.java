@@ -73,7 +73,7 @@ public class LoginActivity extends ActionBarActivity implements View.OnClickList
         login.setOnClickListener(this);
 
         ActionBarUtil.initToolBar(this, statusBar, toolbar);
-        setTitle("登陆");
+        setTitle("登录");
         setSupportActionBar(toolbar);
 
         ActionBar actionBar = this.getSupportActionBar();
@@ -115,7 +115,7 @@ public class LoginActivity extends ActionBarActivity implements View.OnClickList
             case R.id.more:
                 new AlertDialogPro.Builder(LoginActivity.this).
                         setTitle("更多...").
-                        setMultiChoiceItems(new String[]{"记住密码", "自动登陆"}, multChoice, new DialogInterface.OnMultiChoiceClickListener() {
+                        setMultiChoiceItems(new String[]{"记住密码", "自动登录"}, multChoice, new DialogInterface.OnMultiChoiceClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                                 multChoice[which] = isChecked;
@@ -146,7 +146,7 @@ public class LoginActivity extends ActionBarActivity implements View.OnClickList
                     editor.putBoolean("autologin", multChoice[1]);
                     editor.apply();
 
-                    LoginTask task = new LoginTask(LoginActivity.this, multChoice[0]); //为毛传multChoice[0]---->记住密码,如果成功登陆则记住密码,否则不记住
+                    LoginTask task = new LoginTask(LoginActivity.this, multChoice[0]); //为毛传multChoice[0]---->记住密码,如果成功登录则记住密码,否则不记住
                     task.execute(name, pass);
                 }
                 break;
