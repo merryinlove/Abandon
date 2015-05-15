@@ -2,18 +2,16 @@ package com.csu.telecom;
 
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Adapter;
 import android.widget.ImageView;
-
 
 import com.csu.fragment.CampusNet;
 import com.csu.fragment.PublicNet;
@@ -31,18 +29,15 @@ import it.neokree.materialtabs.MaterialTabListener;
 
 public class HomeActivity extends ActionBarActivity implements MaterialTabListener {
 
+    PublicNet publicNet = new PublicNet();
+    CampusNet campusNet = new CampusNet();
+    RestAmount restAmount = new RestAmount();
     private ImageView statusBar;
     private Toolbar toolbar;
     private String result;
     private MaterialTabHost tabHost;
     private ViewPager pager;
     private ViewPagerAdapter adapter;
-
-
-    PublicNet publicNet = new PublicNet();
-    CampusNet campusNet = new CampusNet();
-    RestAmount restAmount = new RestAmount();
-
     private Fragment[] fragments = new Fragment[]{
             publicNet,
             campusNet,
@@ -131,14 +126,12 @@ public class HomeActivity extends ActionBarActivity implements MaterialTabListen
             public void onPageSelected(int position) {
                 tabHost.setSelectedNavigationItem(position);
             }
-
         });
 
         //insert all tabs
         for (int i = 0; i < adapter.getCount(); i++) {
             tabHost.addTab(tabHost.newTab().setText(adapter.getPageTitle(i)).setTabListener(this));
         }
-
 
         ActionBarUtil.initToolBar(this, statusBar, toolbar);
         setTitle("流量信息");
@@ -154,18 +147,16 @@ public class HomeActivity extends ActionBarActivity implements MaterialTabListen
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_logout) {
             new LogoutTask(this).execute();
+            return true;
         } else if (id == R.id.action_settings) {
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -176,12 +167,10 @@ public class HomeActivity extends ActionBarActivity implements MaterialTabListen
 
     @Override
     public void onTabReselected(MaterialTab materialTab) {
-
     }
 
     @Override
     public void onTabUnselected(MaterialTab materialTab) {
-
     }
 
     private class ViewPagerAdapter extends FragmentStatePagerAdapter {
