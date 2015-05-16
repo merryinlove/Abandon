@@ -62,6 +62,7 @@
                     android:editable="false"
                     android:hint="提醒"
                     android:text="点我跳转到充值页面"
+                    android:textSize="14sp"
                     app:met_baseColor="#fff"
                     app:met_floatingLabel="highlight"
                     app:met_hideUnderline="true"

@@ -61,7 +61,7 @@
                     android:layout_height="wrap_content"
                     android:editable="false"
                     android:hint="提醒"
-                    android:text="流量超了哦,请注意你的使用哦!"
+                    android:textSize="14sp"
                     app:met_baseColor="#fff"
                     app:met_floatingLabel="highlight"
                     app:met_hideUnderline="true"

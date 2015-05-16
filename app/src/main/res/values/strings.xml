@@ -8,5 +8,5 @@
     <string name="title_activity_login">登录</string>
     <string name="title_activity_home">流量信息</string>
     <string name="title_activity_settings">设置</string>
-
+    <string name="action_high">手动下线</string>
 </resources>

@@ -1,8 +1,7 @@
-package com.csu.fragment;
+package csu.fragment;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,8 +9,10 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.csu.telecom.R;
 import com.rengwuxian.materialedittext.MaterialEditText;
+
+import csu.telecom.R;
+import csu.utils.WarnUtil;
 
 /**
  * Created by ubuntu on 15-5-14.
@@ -28,6 +29,7 @@ public class PublicNet extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_public, null);
         savedInstanceState = getArguments();
+
         usedflow = savedInstanceState.getDouble("usedflow");
         totalflow = savedInstanceState.getDouble("totalflow");
         lastupdate = savedInstanceState.getString("lastupdate");
@@ -61,8 +63,12 @@ public class PublicNet extends Fragment {
         used.setProgress((int) ((usedflow / totalflow) * 100));
 
         all.setText((int) totalflow + "MB");
-        rest.setText((int) (totalflow - usedflow + 1) + "MB");
-        warn.setText("流量还行,注意");
+
+
+        int restAmount = (int) (totalflow - usedflow + 1) > 0 ? (int) (totalflow - usedflow + 1) : 0;
+
+        rest.setText(restAmount + "MB");
+        warn.setText(WarnUtil.getPublicWarn((int) totalflow, (int) usedflow));
 
 
     }

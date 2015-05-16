@@ -1,4 +1,4 @@
-package com.csu.utils;
+package csu.utils;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -7,7 +7,7 @@ import android.os.Build;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.csu.telecom.R;
+import csu.telecom.R;
 
 /**
  * Created by ubuntu on 15-5-10.

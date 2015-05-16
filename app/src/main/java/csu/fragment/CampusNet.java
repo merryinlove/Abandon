@@ -1,8 +1,7 @@
-package com.csu.fragment;
+package csu.fragment;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,8 +9,10 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.csu.telecom.R;
 import com.rengwuxian.materialedittext.MaterialEditText;
+
+import csu.telecom.R;
+import csu.utils.WarnUtil;
 
 /**
  * Created by ubuntu on 15-5-14.
@@ -62,7 +63,11 @@ public class CampusNet extends Fragment {
         used.setProgress((int) ((userSchoolOctets / surplusflow) * 100));
 
         all.setText((int) surplusflow + "MB");
-        rest.setText((int) (surplusflow - userSchoolOctets + 1) + "MB");
-        warn.setText("流量还行,注意");
+
+
+        int restAmount = (int) (surplusflow - userSchoolOctets + 1) > 0 ? (int) (surplusflow - userSchoolOctets + 1) : 0;
+
+        rest.setText(restAmount + "MB");
+        warn.setText(WarnUtil.getCampusWarn());
     }
 }

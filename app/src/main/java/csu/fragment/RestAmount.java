@@ -1,4 +1,4 @@
-package com.csu.fragment;
+package csu.fragment;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,8 +12,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.alertdialogpro.AlertDialogPro;
-import com.csu.telecom.R;
 import com.rengwuxian.materialedittext.MaterialEditText;
+
+import csu.telecom.R;
 
 /**
  * Created by ubuntu on 15-5-14.
@@ -23,7 +24,7 @@ public class RestAmount extends Fragment {
     private TextView amount, point, last;
     private MaterialEditText all, rest, warn;
     private double surplusmoney;
-
+    private double usedflow, totalflow;
     private String lastupdate;
 
     @Override
@@ -32,6 +33,8 @@ public class RestAmount extends Fragment {
         savedInstanceState = getArguments();
         surplusmoney = savedInstanceState.getDouble("surplusmoney");
         lastupdate = savedInstanceState.getString("lastupdate");
+        usedflow = savedInstanceState.getDouble("usedflow");
+        totalflow = savedInstanceState.getDouble("totalflow");
         init(view);
         return view;
     }
@@ -58,7 +61,10 @@ public class RestAmount extends Fragment {
         last.setText("最后更新于:" + lastupdate);
 
         //used.setProgress((int) ((surplusmoney / surplusflow) * 100));
-        //all.setText((int) surplusflow + "MB");
+
+
+        double restAmount = (totalflow - usedflow + 1) < 0 ? (totalflow - usedflow + 1) / 1024.0 * 1.2 : 0.00;
+        all.setText(df.format(restAmount) + "MB");
         rest.setText(surplusmoney + "元");
         warn.setText("点我跳转到充值页面");
 
@@ -71,7 +77,7 @@ public class RestAmount extends Fragment {
                                 "本应用不会有任何损害您利益的行为.\n" +
                                 "但是由于本应用开源因此可能导致第三方的恶意修改,编译,发布," +
                                 "请确保本应用是来自正规渠道,否则请取消使用本功能.")
-                        .setPositiveButton("确定调转跳转", new DialogInterface.OnClickListener() {
+                        .setPositiveButton("确定跳转", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 Uri uri = Uri.parse("http://hn.189.cn/hnselfservice/topup/topup!topupIndex.action?isCorp=0");

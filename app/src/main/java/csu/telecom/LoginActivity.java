@@ -1,25 +1,25 @@
-package com.csu.telecom;
+package csu.telecom;
 
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.alertdialogpro.AlertDialogPro;
-import com.csu.task.LoginTask;
-import com.csu.utils.ActionBarUtil;
-import com.csu.utils.RSAUtil;
 import com.github.mrengineer13.snackbar.SnackBar;
 import com.material.widget.PaperButton;
 import com.rengwuxian.materialedittext.MaterialEditText;
+
+import csu.task.LoginTask;
+import csu.task.LogoutTask;
+import csu.utils.ActionBarUtil;
 
 
 public class LoginActivity extends ActionBarActivity implements View.OnClickListener {
@@ -102,8 +102,28 @@ public class LoginActivity extends ActionBarActivity implements View.OnClickList
         if (id == android.R.id.home) {
             finish();
             return true;
-        } else if (id == R.id.action_settings) {
+        } else if (id == R.id.action_logout) {
+            new LogoutTask(this).execute();
+            return true;
+        } else if (id == R.id.action_high) {
+            //手动下线
+            final View view = View.inflate(this, R.layout.layout_logout_item, null);
+            new AlertDialogPro.Builder(this).setTitle("手动下线").setView(view)
+                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            preferences = getSharedPreferences("use_address", 0);
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putString("brasAddress", "59df7586");//默认值
+                            editor.putString("userIntranetAddress", ((MaterialEditText) view.findViewById(R.id.ip)).getText().toString());
+                            editor.apply();
+                            new LogoutTask(LoginActivity.this).execute();
+                        }
+                    })
+                    .setNegativeButton("取消", null)
+                    .show();
 
+            return true;
         }
 
         return super.onOptionsItemSelected(item);

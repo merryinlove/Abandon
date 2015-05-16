@@ -1,25 +1,20 @@
-package com.csu.task;
+package csu.task;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
-import com.csu.telecom.HomeActivity;
-import com.csu.telecom.LoginActivity;
-import com.csu.telecom.R;
-import com.csu.utils.RSAUtil;
 import com.github.mrengineer13.snackbar.SnackBar;
 import com.lsjwzh.widget.materialloadingprogressbar.CircleProgressBar;
-import com.rengwuxian.materialedittext.MaterialEditText;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -43,7 +38,12 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.net.ConnectivityManager.*;
+import csu.telecom.HomeActivity;
+import csu.telecom.LoginActivity;
+import csu.telecom.R;
+import csu.utils.RSAUtil;
+
+import static android.net.ConnectivityManager.TYPE_WIFI;
 
 /**
  * Created by ubuntu on 15-5-13.
@@ -255,7 +255,6 @@ public class LoginTask extends AsyncTask<String, Integer, Void> {
 
 
                 Intent intent = new Intent(context, HomeActivity.class);
-                Bundle bundle = new Bundle();
                 intent.putExtra("json", result);//传递流量信息
                 context.startActivity(intent);
             } else {
@@ -272,7 +271,7 @@ public class LoginTask extends AsyncTask<String, Integer, Void> {
     }
 
     private void showSnackAlert(String mention) {
-        new SnackBar.Builder((LoginActivity) context).withBackgroundColorId(R.color.primary).withMessage(mention).show();
+        new SnackBar.Builder((Activity) context).withBackgroundColorId(R.color.primary).withMessage(mention).show();
     }
 
 

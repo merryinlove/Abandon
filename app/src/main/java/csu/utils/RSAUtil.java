@@ -1,4 +1,4 @@
-package com.csu.utils;/*
+package csu.utils;/*
 * 根据firebug调试结果与js参考写出,部分代码与js一致
 * 顺便吐槽下,卧槽,这js写的太难懂了
 * */

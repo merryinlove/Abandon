@@ -1,16 +1,17 @@
-package com.csu.telecom;
+package csu.telecom;
 
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.csu.utils.ActionBarUtil;
 import com.melnykov.fab.FloatingActionButton;
 import com.skyfishjy.library.RippleBackground;
+
+import csu.utils.ActionBarUtil;
 
 
 public class WelcomeActivity extends ActionBarActivity implements View.OnClickListener {
@@ -20,9 +21,19 @@ public class WelcomeActivity extends ActionBarActivity implements View.OnClickLi
     private TextView head;
     private FloatingActionButton fab;
     private RippleBackground rippleBackground;
+//    private SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //is first run?
+//        preferences = getSharedPreferences("run_info", 0);
+//        boolean first = preferences.getBoolean("first", true);
+//        if (!first) {
+//            finish();
+//            startActivity(new Intent(this, LoginActivity.class));
+//
+//        }
+//        preferences.edit().putBoolean("first", false).apply();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         init();
@@ -38,8 +49,7 @@ public class WelcomeActivity extends ActionBarActivity implements View.OnClickLi
         rippleBackground = (RippleBackground) findViewById(R.id.animation);
         rippleBackground.startRippleAnimation();
 
-        ActionBarUtil.initToolBar(this,statusBar,content);
-
+        ActionBarUtil.initToolBar(this, statusBar, content);
 
 
         Typeface typeface = Typeface.createFromAsset(getAssets(), "helveticaneue-light.otf");
@@ -49,12 +59,17 @@ public class WelcomeActivity extends ActionBarActivity implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(WelcomeActivity.this,LoginActivity.class);
+        Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
         rippleBackground.stopRippleAnimation();
         startActivity(intent);
 
     }
 
+    @Override
+    protected void onRestart() {
 
+        rippleBackground.startRippleAnimation();
 
+        super.onRestart();
+    }
 }

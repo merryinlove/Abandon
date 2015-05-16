@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.csu.telecom.HomeActivity">
+    tools:context="csu.telecom.HomeActivity">
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
@@ -9,9 +9,9 @@
         app:showAsAction="never" />
     <item
         android:id="@+id/action_logout"
+        android:icon="@mipmap/ic_exit"
         android:orderInCategory="100"
         android:title="@string/action_logout"
-        android:icon="@mipmap/ic_exit"
         app:showAsAction="ifRoom" />
 
 

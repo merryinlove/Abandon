@@ -1,4 +1,4 @@
-package com.csu.telecom;
+package csu.telecom;
 
 
 import android.content.Intent;
@@ -9,19 +9,24 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 
-import com.csu.fragment.CampusNet;
-import com.csu.fragment.PublicNet;
-import com.csu.fragment.RestAmount;
-import com.csu.task.LogoutTask;
-import com.csu.utils.ActionBarUtil;
+import com.github.mrengineer13.snackbar.SnackBar;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
+import csu.fragment.CampusNet;
+import csu.fragment.PublicNet;
+import csu.fragment.RestAmount;
+import csu.task.LogoutTask;
+import csu.utils.ActionBarUtil;
 import it.neokree.materialtabs.MaterialTab;
 import it.neokree.materialtabs.MaterialTabHost;
 import it.neokree.materialtabs.MaterialTabListener;
@@ -51,6 +56,7 @@ public class HomeActivity extends ActionBarActivity implements MaterialTabListen
 
     private double surplusmoney;
     private String lastupdate;
+    private boolean toHome = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,11 +81,11 @@ public class HomeActivity extends ActionBarActivity implements MaterialTabListen
     }
 
     private void init() {
-        //
-        //        Intent intent = getIntent();
-        //        result = intent.getStringExtra("json");
+
+        Intent intent = getIntent();
+        result = intent.getStringExtra("json");
         //just for test
-        result = "{\n" +
+        /*result = "{\n" +
                 "\"userSchoolOctets\":\"202.59\",\n" +
                 "\"password\":\"34babc7360866a3ee74\",\n" +
                 "\"surplusmoney\":\"35.13\",\n" +
@@ -98,7 +104,7 @@ public class HomeActivity extends ActionBarActivity implements MaterialTabListen
                 "\"brasAddress\":\"61.187.70.254\",\n" +
                 "\"username\":\"013901120325\",\n" +
                 "\"userAgentType\":\"Mozilla/4.0\"\n" +
-                "}\n";
+                "}\n";*/
 
         try {
             JSONObject json = new JSONObject(result);
@@ -136,6 +142,28 @@ public class HomeActivity extends ActionBarActivity implements MaterialTabListen
         ActionBarUtil.initToolBar(this, statusBar, toolbar);
         setTitle("流量信息");
         setSupportActionBar(toolbar);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (!toHome) {
+                toHome = true;
+                new SnackBar.Builder(HomeActivity.this).withMessage("再按一次返回桌面").withBackgroundColorId(R.color.sb__button_text_color_red).show();
+                new Timer().schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        toHome = false;
+                    }
+                }, 2000);
+            } else {
+                Intent MyIntent = new Intent(Intent.ACTION_MAIN);
+                MyIntent.addCategory(Intent.CATEGORY_HOME);
+                startActivity(MyIntent);
+            }
+        }
+
+        return super.onKeyUp(keyCode, event);
     }
 
     @Override
@@ -217,4 +245,6 @@ public class HomeActivity extends ActionBarActivity implements MaterialTabListen
                 *   "userAgentType":"Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)"
                 *  }
                 * */
+
+
 }
