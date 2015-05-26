@@ -9,11 +9,9 @@
 
     </style>
 
-    <style name="MaterialNavigationDrawerTheme.Light.DarkActionBar" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
-        <!--<item name="popupTheme">@style/Base.V21.Theme.AppCompat.Light.Dialog</item>-->
+    <style name="MaterialNavigationDrawerTheme.Light.DarkActionBar" parent="Theme.AppCompat.NoActionBar">
+        <item name="theme">@style/ThemeOverlay.AppCompat.ActionBar</item>
         <item name="android:textColorSecondary">@android:color/white</item>
     </style>
-
 
 </resources>

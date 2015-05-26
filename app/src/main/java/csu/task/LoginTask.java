@@ -89,6 +89,7 @@ public class LoginTask extends AsyncTask<String, Integer, Void> {
                 String temp;
                 while ((temp = br.readLine()) != null) {
                     html += temp + "\n";
+                    Log.d("Test",temp);
                 }
                 //使用jsoup获取网页内容
                 Document doc = Jsoup.parse(html);
@@ -229,7 +230,7 @@ public class LoginTask extends AsyncTask<String, Integer, Void> {
     @Override
     protected void onPostExecute(Void aVoid) {
         try {
-            JSONObject object = new JSONObject(result);
+            JSONObject object = new JSONObject(result+"");
             int resultCode = object.getInt("resultCode");
             String resultDescribe = object.getString("resultDescribe");
             //如果result为空说明,登录失败,超连接时等错误

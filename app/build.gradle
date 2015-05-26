@@ -8,8 +8,8 @@ android {
         applicationId "csu.telecom.ubuntu"
         minSdkVersion 14
         targetSdkVersion 21
-        versionCode 3
-        versionName "2.2"
+        versionCode 4
+        versionName "2.3"
     }
     buildTypes {
         release {
